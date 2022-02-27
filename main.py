@@ -4,6 +4,7 @@ import sys
 import argparse
 import pyfiglet
 from scapy.all import *
+
 def main():
    menu()
 
@@ -14,6 +15,8 @@ def menu():
       A: Portscanner
       B: Ip Scanner
       C: Mac Adress Scanner
+      D: OS Scanner
+      F: Hostname Scanner
       Q: Exit
 
       Please enter your choice: """)
@@ -26,13 +29,16 @@ def menu():
         macscan()
     elif choice == "D" or choice =="d":
         osscanner()
+    elif choice == "F" or choice =="f":
+        hostnamescanner()
     elif choice=="Q" or choice=="q":
         sys.exit
     else:
         print("You must only select either A, B or C.")
         print("Please try again")
         menu()
-# port scanner
+
+# Port Scanner -----------------------------------------------------------------------------------
 def portscanner():
    import sys
    import socket
@@ -127,11 +133,15 @@ def portscanner():
    #          ):
    #                print(f"{host}:{dst_port} is filtered (silently dropped).")
 
+
+# OS Scanner -------------------------------------------------------------------------------------------
 def osscanner():
    nm = nmap.PortScanner()
    machine = nm.scan('<hostIP>', arguments='-O')
    print(machine['scan']['<hostIP>']['osmatch'][0]['osclass'][0]['osfamily'])
 
+
+# Hostname Scanner -------------------------------------------------------------------------------------
 def hostnamescanner():
    nm = nmap.PortScanner()
    nm.scan(hosts='192.168.0.1/24', arguments='-n -sP -PE -PA21,23,80,3389')
@@ -141,7 +151,7 @@ def hostnamescanner():
       print('{0}:{1}:{2}'.format(host, status,name))
 
 
-
+# MAC Scanner ------------------------------------------------------------------------------------------
 def macscan():
    ascii_banner = pyfiglet.figlet_format("MAC ADRESS SCANNER")
    print(ascii_banner)
@@ -171,7 +181,7 @@ def macscan():
       print("{:16}    {}".format(client['ip'], client['mac']))
 
 # def portscanner():
-#    # Port Scanner -----------------------------------------------------------------------------------------
+#    # Port Scanner ----------------------------------------------------------------------------------------
 #    import socket
 #    from datetime import datetime
 #    net = input("Enter the IP address: ")
@@ -203,6 +213,8 @@ def macscan():
 #    t2 = datetime.now()
 #    total = t2 - t1
 #    print ("Scanning completed in: " , total)
+
+
 
 # IP Scanner -------------------------------------------------------------------------------------------
 def ipscanner():
