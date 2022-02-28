@@ -1,4 +1,4 @@
-from nmap import *
+import nmap
 import socket
 import sys
 import argparse
@@ -22,7 +22,7 @@ def menu():
       Please enter your choice: """)
 
     if choice == "A" or choice =="a":
-        portscanner()
+        PortScanner()
     elif choice == "B" or choice =="b":
         ipscanner()
     elif choice == "C" or choice =="c":
@@ -39,7 +39,7 @@ def menu():
         menu()
 
 # Port Scanner -----------------------------------------------------------------------------------
-def portscanner():
+def PortScanner():
    import sys
    import socket
    from datetime import datetime
